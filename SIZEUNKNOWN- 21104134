@@ -1,0 +1,52 @@
+#  FINDING USING LINEAR SEARCH 
+
+def linearSearch(arr,x):
+    try:
+        i = 0
+        while True :
+            if arr[i] == x:
+                return i
+            i += 1 
+    except IndexError:
+        return -1
+
+# FINDING USING BINARY SEARCH 
+
+def binarySearch(arr,y,initial=0,final=1):
+    try :
+        while arr[final] < y :
+            initial = final+1
+            final = final*2
+
+        return binarySearchHelper(arr,y,initial,final)
+
+    except IndexError:
+        
+        if final>initial:
+            final = (initial+final)//2
+            return binarySearch(arr,y,initial,final)
+        else:
+            return -1 
+
+
+def binarySearchHelper(arr,c,initial,final):
+    if initial>final :
+        return -1
+    mid = (initial+final)//2
+    if arr[mid] == c :
+        return mid
+    if arr[mid] < c :
+        return binarySearchHelper(arr,c,mid+1,final)
+    else:
+        return binarySearchHelper(arr,c,initial,mid-1)  
+
+
+
+# Main 
+n = int(input("enter number of elements : "))
+arr = []
+for i in range(n):
+    arr.append(int(input()))
+x = int(input())
+print(linearSearch(arr,x))
+print(binarySearch(arr,x))
